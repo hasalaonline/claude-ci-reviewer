@@ -1,0 +1,9 @@
+{
+  "name": "claude-ci-reviewer",
+  "version": "1.0.0",
+  "description": "Automated pull request reviews with claude -p in GitHub Actions",
+  "type": "module",
+  "scripts": {
+    "test": "node --test"
+  }
+}
