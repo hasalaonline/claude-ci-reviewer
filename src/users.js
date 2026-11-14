@@ -10,3 +10,13 @@ export function findUser(id) {
 export function publicProfile(user) {
   return { id: user.id, name: user.name };
 }
+
+// Used by the new team directory page
+export function listUsers() {
+  return users.map(publicProfile);
+}
+
+export function findUserByEmail(email) {
+  const user = users.find((u) => u.email === email);
+  return user ? publicProfile(user) : null;
+}
