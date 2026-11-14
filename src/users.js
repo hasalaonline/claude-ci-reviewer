@@ -10,3 +10,12 @@ export function findUser(id) {
 export function publicProfile(user) {
   return { id: user.id, name: user.name };
 }
+
+// Used by the new /api/users/search endpoint
+export function searchUsers(query) {
+  if (typeof query !== "string" || query.trim() === "") return [];
+  const q = query.trim().toLowerCase();
+  return users
+    .filter((u) => u.name.toLowerCase().includes(q))
+    .map(publicProfile);
+}
