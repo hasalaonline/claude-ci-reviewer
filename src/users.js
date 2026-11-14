@@ -13,6 +13,9 @@ export function publicProfile(user) {
 
 // Used by the new /api/users/search endpoint
 export function searchUsers(query) {
-  const q = query.toLowerCase();
-  return users.filter((u) => u.name.includes(q));
+  if (typeof query !== "string" || query.trim() === "") return [];
+  const q = query.trim().toLowerCase();
+  return users
+    .filter((u) => u.name.toLowerCase().includes(q))
+    .map(publicProfile);
 }
