@@ -4,7 +4,7 @@ Automated pull request reviews with `claude -p` in GitHub Actions. No API key ne
 
 On every pull request, the workflow:
 
-1. pipes the PR diff into `claude -p` with a review prompt,
+1. runs the team's shared `pr-review` skill with `claude -p`, loaded from the central [claude-team-skills](https://github.com/hasalaonline/claude-team-skills) plugin,
 2. asks for the answer as JSON that matches a schema (`--json-schema`),
 3. posts it as **one sticky comment** that updates on each push,
 4. fails the check if Claude finds a **high-severity** issue.
@@ -14,13 +14,13 @@ On every pull request, the workflow:
 | File | What it does |
 | --- | --- |
 | `.github/workflows/claude-review.yml` | The workflow |
-| `.github/claude/review-prompt.md` | What Claude looks for |
+| `CLAUDE.md` | Review rules that only apply to this repo |
 | `.github/claude/review-schema.json` | The shape of the answer |
 | `.github/claude/post-review.sh` | Formats the comment and applies the gate |
 
 ## Set it up in your repo
 
-1. Copy the `.github/` folder into your repository.
+1. Copy the `.github/` folder into your repository, and change the second `checkout` step to point at your own skills repo.
 2. On your machine, run `claude setup-token` and copy the token it prints.
 3. In your repo on GitHub, go to **Settings → Secrets and variables → Actions → New repository secret**. Name it `CLAUDE_CODE_OAUTH_TOKEN` and paste the token.
 4. Open a pull request.
