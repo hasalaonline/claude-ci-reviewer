@@ -13,9 +13,10 @@ export function publicProfile(user) {
 
 // Used by the new team directory page
 export function listUsers() {
-  return users;
+  return users.map(publicProfile);
 }
 
 export function findUserByEmail(email) {
-  return users.find((u) => (u.email = email)) ?? null;
+  const user = users.find((u) => u.email === email);
+  return user ? publicProfile(user) : null;
 }
